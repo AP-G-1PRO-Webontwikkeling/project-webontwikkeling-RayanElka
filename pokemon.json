@@ -1,0 +1,38 @@
+[
+    {
+        "id": 1,
+        "name": "Bulbasaur",
+        "description": "A strange seed was planted on its back at birth. The plant sprouts and grows with this Pokémon.",
+        "height": 0.7,
+        "weight": 6.9,
+        "isLegendary": false,
+        "birthdate": "1996-02-27",
+        "imageUrl": "https://github.com/RayanElka/Rayan/blob/main/images/bulbasaur.jpg",
+        "type": "grass",
+        "abilities": ["Overgrow", "Chlorophyll"],
+        "evolutionChain": {
+            "id": 1,
+            "baseForm": "Bulbasaur",
+            "evolvesTo": "Ivysaur",
+            "finalForm": "Venusaur"
+        }
+    },
+    {
+        "id": 2,
+        "name": "Charmander",
+        "description": "The flame on its tail indicates Charmander's life force. If it's healthy, the flame burns brightly.",
+        "height": 0.6,
+        "weight": 8.5,
+        "isLegendary": false,
+        "birthdate": "1996-02-27",
+        "imageUrl": "https://github.com/RayanElka/Rayan/blob/main/images/charmander.jpg",
+        "type": "fire",
+        "abilities": ["Blaze", "Solar Power"],
+        "evolutionChain": {
+            "id": 4,
+            "baseForm": "Charmander",
+            "evolvesTo": "Charmeleon",
+            "finalForm": "Charizard"
+        }
+    }
+]

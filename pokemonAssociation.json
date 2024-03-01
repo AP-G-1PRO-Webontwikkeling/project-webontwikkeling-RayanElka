@@ -1,0 +1,18 @@
+[
+    {
+        "id": "LEAGUE-001",
+        "name": "Indigo Pokémon League",
+        "champion": "Elite Trainer",
+        "leagueEmblemUrl": "",
+        "foundedYear": 1996,
+        "motto": "Catch 'Em All"
+    },
+    {
+        "id": "LEAGUE-002",
+        "name": "Hoenn Pokémon League",
+        "champion": "Pokémon Champion",
+        "leagueEmblemUrl": "",
+        "foundedYear": 2002,
+        "motto": "Master the Elements"
+    }
+]
