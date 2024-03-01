@@ -7,7 +7,7 @@
         "weight": 6.9,
         "isLegendary": false,
         "birthdate": "1996-02-27",
-        "imageUrl": "https://github.com/RayanElka/Rayan/blob/main/images/bulbasaur.jpg",
+        "imageUrl": "https://raw.github.com/AP-G-1PRO-Webontwikkeling/project-webontwikkeling-RayanElka/blob/main/images/bulbasaur.jpg",
         "type": "grass",
         "abilities": ["Overgrow", "Chlorophyll"],
         "evolutionChain": {
@@ -25,7 +25,7 @@
         "weight": 8.5,
         "isLegendary": false,
         "birthdate": "1996-02-27",
-        "imageUrl": "https://github.com/RayanElka/Rayan/blob/main/images/charmander.jpg",
+        "imageUrl": "https://raw.github.com/AP-G-1PRO-Webontwikkeling/project-webontwikkeling-RayanElka/main/images/charmander.jpg",
         "type": "fire",
         "abilities": ["Blaze", "Solar Power"],
         "evolutionChain": {
@@ -34,5 +34,7 @@
             "evolvesTo": "Charmeleon",
             "finalForm": "Charizard"
         }
+        
     }
+    
 ]
