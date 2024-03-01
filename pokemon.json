@@ -1,40 +1,185 @@
-[
-    {
-        "id": 1,
-        "name": "Bulbasaur",
-        "description": "A strange seed was planted on its back at birth. The plant sprouts and grows with this Pokémon.",
-        "height": 0.7,
-        "weight": 6.9,
-        "isLegendary": false,
-        "birthdate": "1996-02-27",
-        "imageUrl": "https://raw.github.com/AP-G-1PRO-Webontwikkeling/project-webontwikkeling-RayanElka/blob/main/images/bulbasaur.jpg",
-        "type": "grass",
-        "abilities": ["Overgrow", "Chlorophyll"],
-        "evolutionChain": {
+    [
+        {
             "id": 1,
-            "baseForm": "Bulbasaur",
-            "evolvesTo": "Ivysaur",
-            "finalForm": "Venusaur"
-        }
-    },
-    {
-        "id": 2,
-        "name": "Charmander",
-        "description": "The flame on its tail indicates Charmander's life force. If it's healthy, the flame burns brightly.",
-        "height": 0.6,
-        "weight": 8.5,
-        "isLegendary": false,
-        "birthdate": "1996-02-27",
-        "imageUrl": "https://raw.github.com/AP-G-1PRO-Webontwikkeling/project-webontwikkeling-RayanElka/main/images/charmander.jpg",
-        "type": "fire",
-        "abilities": ["Blaze", "Solar Power"],
-        "evolutionChain": {
-            "id": 4,
-            "baseForm": "Charmander",
-            "evolvesTo": "Charmeleon",
-            "finalForm": "Charizard"
-        }
+            "name": "Bulbasaur",
+            "description": "A strange seed was planted on its back at birth. The plant sprouts and grows with this Pokémon.",
+            "height": 0.7,
+            "weight": 6.9,
+            "isLegendary": false,
+            "birthdate": "1996-02-27",
+            "imageUrl": "https://raw.github.com/AP-G-1PRO-Webontwikkeling/project-webontwikkeling-RayanElka/blob/main/images/bulbasaur.jpg",
+            "type": "grass",
+            "abilities": ["Overgrow", "Chlorophyll"],
+            "evolutionChain": {
+                "id": 1,
+                "baseForm": "Bulbasaur",
+                "evolvesTo": "Ivysaur",
+                "finalForm": "Venusaur"
+            }
+        },
+        {
+            "id": 2,
+            "name": "Charmander",
+            "description": "The flame on its tail indicates Charmander's life force. If it's healthy, the flame burns brightly.",
+            "height": 0.6,
+            "weight": 8.5,
+            "isLegendary": false,
+            "birthdate": "1996-02-27",
+            "imageUrl": "https://raw.github.com/AP-G-1PRO-Webontwikkeling/project-webontwikkeling-RayanElka/main/images/charmander.jpg",
+            "type": "fire",
+            "abilities": ["Blaze", "Solar Power"],
+            "evolutionChain": {
+                "id": 4,
+                "baseForm": "Charmander",
+                "evolvesTo": "Charmeleon",
+                "finalForm": "Charizard"
+            }
+            
+        },
         
-    }
-    
-]
+        
+            {
+                "id": 3,
+                "name": "Squirtle",
+                "description": "After birth, its back swells and hardens into a shell. Powerfully sprays foam from its mouth.",
+                "height": 0.5,
+                "weight": 9.0,
+                "isLegendary": false,
+                "birthdate": "1996-02-27",
+                "imageUrl": "https://raw.github.com/AP-G-1PRO-Webontwikkeling/project-webontwikkeling-RayanElka/main/images/squirtle.jpg",
+                "type": "water",
+                "abilities": ["Torrent", "Rain Dish"],
+                "evolutionChain": {
+                    "id": 7,
+                    "baseForm": "Squirtle",
+                    "evolvesTo": "Wartortle",
+                    "finalForm": "Blastoise"
+                }
+            },
+            {
+                "id": 4,
+                "name": "Pikachu",
+                "description": "This Pokémon has electricity-storing pouches on its cheeks. These appear to become electrically charged during the night while Pikachu sleeps.",
+                "height": 0.4,
+                "weight": 6.0,
+                "isLegendary": false,
+                "birthdate": "1996-02-27",
+                "imageUrl": "https://raw.github.com/AP-G-1PRO-Webontwikkeling/project-webontwikkeling-RayanElka/main/images/pikachu.jpg",
+                "type": "electric",
+                "abilities": ["Static", "Lightning Rod"],
+                "evolutionChain": {
+                    "id": 10,
+                    "baseForm": "Pichu",
+                    "evolvesTo": "Pikachu",
+                    "finalForm": "Raichu"
+                }
+            },
+            {
+                "id": 5,
+                "name": "Jigglypuff",
+                "description": "Jigglypuff's vocal cords can freely adjust the wavelength of its voice. This Pokémon uses this ability to sing at precisely the right wavelength to make its foes most drowsy.",
+                "height": 0.5,
+                "weight": 5.5,
+                "isLegendary": false,
+                "birthdate": "1996-02-27",
+                "imageUrl": "https://raw.github.com/AP-G-1PRO-Webontwikkeling/project-webontwikkeling-RayanElka/main/images/jigglypuff.jpg",
+                "type": "normal",
+                "abilities": ["Cute Charm", "Competitive"],
+                "evolutionChain": {
+                    "id": 13,
+                    "baseForm": "Igglybuff",
+                    "evolvesTo": "Jigglypuff",
+                    "finalForm": "Wigglytuff"
+                }
+            },
+            {
+                "id": 6,
+                "name": "Geodude",
+                "description": "The longer a Geodude lives, the more its edges are chipped and worn away, making it more rounded in appearance.",
+                "height": 0.4,
+                "weight": 20.0,
+                "isLegendary": false,
+                "birthdate": "1996-02-27",
+                "imageUrl": "https://raw.github.com/AP-G-1PRO-Webontwikkeling/project-webontwikkeling-RayanElka/main/images/geodude.jpg",
+                "type": "rock",
+                "abilities": ["Rock Head", "Sturdy"],
+                "evolutionChain": {
+                    "id": 16,
+                    "baseForm": "Geodude",
+                    "evolvesTo": "Graveler",
+                    "finalForm": "Golem"
+                }
+            },
+            {
+                "id": 7,
+                "name": "Magikarp",
+                "description": "Magikarp is a pathetic excuse for a Pokémon that is only capable of flopping and splashing. This behavior prompted scientists to undertake research into it.",
+                "height": 0.9,
+                "weight": 10.0,
+                "isLegendary": false,
+                "birthdate": "1996-02-27",
+                "imageUrl": "https://raw.github.com/AP-G-1PRO-Webontwikkeling/project-webontwikkeling-RayanElka/main/images/magikarp.jpg",
+                "type": "water",
+                "abilities": ["Swift Swim", "Rattled"],
+                "evolutionChain": {
+                    "id": 19,
+                    "baseForm": "Magikarp",
+                    "evolvesTo": "Gyarados",
+                    "finalForm": "None"
+                }
+            },
+            {
+                "id": 8,
+                "name": "Eevee",
+                "description": "Eevee has an unstable genetic makeup that suddenly mutates due to the environment in which it lives. Radiation from various stones causes this Pokémon to evolve.",
+                "height": 0.3,
+                "weight": 6.5,
+                "isLegendary": false,
+                "birthdate": "1996-02-27",
+                "imageUrl": "https://raw.github.com/AP-G-1PRO-Webontwikkeling/project-webontwikkeling-RayanElka/main/images/eevee.jpg",
+                "type": "normal",
+                "abilities": ["Run Away", "Adaptability"],
+                "evolutionChain": {
+                    "id": 22,
+                    "baseForm": "Eevee",
+                    "evolvesTo": "Vaporeon, Jolteon, Flareon, Espeon, Umbreon, Leafeon, Glaceon, Sylveon",
+                    "finalForm": "None"
+                }
+            },
+            {
+                "id": 9,
+                "name": "Pidgey",
+                "description": "Pidgey has an extremely sharp sense of direction. It is capable of unerringly returning home to its nest, however far it may be removed from its familiar surroundings.",
+                "height": 0.3,
+                "weight": 1.8,
+                "isLegendary": false,
+                "birthdate": "1996-02-27",
+                "imageUrl": "https://raw.github.com/AP-G-1PRO-Webontwikkeling/project-webontwikkeling-RayanElka/main/images/pidgey.jpg",
+                "type": "normal",
+                "abilities": ["Keen Eye", "Tangled Feet"],
+                "evolutionChain": {
+                    "id": 25,
+                    "baseForm": "Pidgey",
+                    "evolvesTo": "Pidgeotto",
+                    "finalForm": "Pidgeot"
+                }
+            },
+            {
+                "id": 10,
+                "name": "Mewtwo",
+                "description": "It was created by a scientist after years of horrific gene splicing and DNA engineering experiments.",
+                "height": 2.0,
+                "weight": 122.0,
+                "isLegendary": true,
+                "birthdate": "1996-02-27",
+                "imageUrl": "https://raw.github.com/AP-G-1PRO-Webontwikkeling/project-webontwikkeling-RayanElka/main/images/mewtwo.jpg",
+                "type": "psychic",
+                "abilities": ["Pressure", "Unnerve"],
+                "evolutionChain": {
+                    "id": 27,
+                    "baseForm": "Mewtwo",
+                    "evolvesTo": "None",
+                    "finalForm": "None"
+                }
+            }
+        ]
