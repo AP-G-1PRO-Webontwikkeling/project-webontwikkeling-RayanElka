@@ -1,0 +1,19 @@
+{
+  "devDependencies": {
+    "@types/node": "^20.11.24"
+  },
+  "name": "project-webontwikkeling-rayanelka",
+  "version": "1.0.0",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.19.2",
+    "ts-node": "^10.9.2",
+    "undici-types": "^5.26.5"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
