@@ -1,0 +1,11 @@
+<tr>
+    <td><%= pokemon.id %></td>
+    <td>
+        <a href="/pokemon/<%= pokemon.id %>"><%= pokemon.name %></a>
+        <img src="/images/<%= pokemon.name.toLowerCase() %>.jpg" alt="<%= pokemon.name %>" width="100">
+    </td>
+    <td><%= pokemon.height %></td>
+    <td><%= pokemon.weight %></td>
+    <td><%= pokemon.description %></td>
+    <td><%= pokemon.isLegendary ? "Yes" : "No" %></td>
+</tr>
