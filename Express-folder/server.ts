@@ -3,16 +3,22 @@ import path from 'path';
 import fs from 'fs';
 import { Pokemon } from './interfaces';
 import { MongoClient, Db } from 'mongodb';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 
 const app = express();
 const PORT = 3000;
-const mongoURI = 'mongodb+srv://Rayan:s131022@webontwikkeling.s378ort.mongodb.net/'; 
-const dbName = 'my_database'; 
+const mongoURI: string | undefined = process.env.MONGO_URI ?? '';
+const dbName = process.env.DB_NAME;
+const port = process.env.PORT;
+
+const client = new MongoClient(mongoURI);
 let db: Db;
+
 async function connectToMongoDB() {
   try {
-    const client = new MongoClient(mongoURI);
     await client.connect();
     console.log('Verbonden met MongoDB');
     db = client.db(dbName);
@@ -20,6 +26,7 @@ async function connectToMongoDB() {
     console.error('Fout bij het verbinden met MongoDB:', error);
   }
 }
+
 
 async function importPokemonDataToMongoDB() {
   try {
