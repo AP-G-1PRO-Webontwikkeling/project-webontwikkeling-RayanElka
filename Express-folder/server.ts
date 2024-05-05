@@ -2,11 +2,40 @@ import express, { Request, Response } from 'express';
 import path from 'path';
 import fs from 'fs';
 import { Pokemon } from './interfaces';
-import { MongoClient } from 'mongodb';
+import { MongoClient, Db } from 'mongodb';
 
 
 const app = express();
 const PORT = 3000;
+const mongoURI = 'mongodb+srv://Rayan:s131022@webontwikkeling.s378ort.mongodb.net/'; 
+const dbName = 'my_database'; 
+let db: Db;
+async function connectToMongoDB() {
+  try {
+    const client = new MongoClient(mongoURI);
+    await client.connect();
+    console.log('Verbonden met MongoDB');
+    db = client.db(dbName);
+  } catch (error) {
+    console.error('Fout bij het verbinden met MongoDB:', error);
+  }
+}
+
+async function importPokemonDataToMongoDB() {
+  try {
+    const pokemonDataPath = path.join(__dirname, 'pokemon.json');
+    const pokemonData: Pokemon[] = await fs.promises.readFile(pokemonDataPath, 'utf-8')
+      .then((data) => JSON.parse(data));
+
+    const collection = db.collection('pokemon');
+    const result = await collection.insertMany(pokemonData);
+    console.log(`${result.insertedCount} documents were inserted into the pokemon collection.`);
+  } catch (error) {
+    console.error(`Error importing pokemon data to MongoDB: ${error}`);
+  }
+}
+connectToMongoDB().then(() => importPokemonDataToMongoDB());
+
 
 async function readPokemonData(): Promise<Pokemon[]> {
   try {
