@@ -166,13 +166,13 @@
             },
             {
                 "id": 10,
-                "name": "Mewtwo",
+                "name": "Mewto",
                 "description": "It was created by a scientist after years of horrific gene splicing and DNA engineering experiments.",
                 "height": 2.0,
                 "weight": 122.0,
                 "isLegendary": true,
                 "birthdate": "1996-02-27",
-                "imageUrl": "https://raw.github.com/AP-G-1PRO-Webontwikkeling/project-webontwikkeling-RayanElka/main/images/mewtwo.jpg",
+                "imageUrl": "https://raw.github.com/AP-G-1PRO-Webontwikkeling/project-webontwikkeling-RayanElka/main/images/mewto.jpg",
                 "type": "psychic",
                 "abilities": ["Pressure", "Unnerve"],
                 "evolutionChain": {

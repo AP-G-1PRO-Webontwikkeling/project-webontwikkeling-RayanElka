@@ -9,6 +9,7 @@ export interface Pokemon {
     imageUrl: string;
     type: string;
     abilities: string[];
+    [key: string]: any; 
     evolutionChain: EvolutionChain;
 }
 
