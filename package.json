@@ -5,6 +5,7 @@
     "@types/express-session": "^1.17.0",
     "@types/node": "^20.11.24",
     "tailwindcss": "^3.4.3",
+    "ts-node": "^10.9.2",
     "typescript": "^5.4.5"
   },
   "name": "project-webontwikkeling-rayanelka",
@@ -20,7 +21,6 @@
     "express-session": "^1.18.0",
     "express-sessions": "^1.0.6",
     "mongodb": "^6.6.2",
-    "ts-node": "^10.9.2",
     "undici-types": "^5.26.5"
   },
   "scripts": {
