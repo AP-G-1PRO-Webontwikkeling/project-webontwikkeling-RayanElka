@@ -15,7 +15,6 @@
     <link rel="stylesheet" href="css/reset.css" />
   </head>
   <body>
-    <%- include('navigation') %>
     <main>
       <h1>Login</h1>
       <form action="/login" method="post">
@@ -27,6 +26,9 @@
         <br />
         <button type="submit">Login</button>
       </form>
+      <a href="/register"
+        ><button type="button" class="btn btn-danger">Registreer</button></a
+      >
     </main>
   </body>
 </html>
