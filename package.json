@@ -11,6 +11,7 @@
   "version": "1.0.0",
   "main": "server.ts",
   "dependencies": {
+    "@mongodb-js/saslprep": "^1.1.7",
     "bcrypt": "^5.1.1",
     "bootstrap": "^5.3.3",
     "dotenv": "^16.4.5",
