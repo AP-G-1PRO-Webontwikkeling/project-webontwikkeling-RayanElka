@@ -9,10 +9,19 @@ import bcrypt from "bcrypt";
 dotenv.config();
 
 const app = express();
-const PORT = 3000;
-const mongoURI: string | undefined = process.env.MONGO_URI ?? "";
-const dbName = process.env.DB_NAME;
-const port = process.env.PORT;
+const PORT = process.env.PORT || 3000;
+const mongoURI: string = process.env.MONGO_URI || "";
+const dbName = process.env.DB_NAME || "";
+
+if (
+  !mongoURI.startsWith("mongodb://") &&
+  !mongoURI.startsWith("mongodb+srv://")
+) {
+  console.error(
+    "Invalid MongoDB connection string. It must start with 'mongodb://' or 'mongodb+srv://'"
+  );
+  process.exit(1);
+}
 
 const client = new MongoClient(mongoURI);
 let db: Db;
@@ -20,10 +29,11 @@ let db: Db;
 async function connectToMongoDB() {
   try {
     await client.connect();
-    console.log("Verbonden met MongoDB");
+    console.log("Connected to MongoDB");
     db = client.db(dbName);
   } catch (error) {
-    console.error("Fout bij het verbinden met MongoDB:", error);
+    console.error("Error connecting to MongoDB:", error);
+    process.exit(1);
   }
 }
 
@@ -43,7 +53,7 @@ async function importPokemonDataToMongoDB() {
     console.error(`Error importing pokemon data to MongoDB: ${error}`);
   }
 }
-connectToMongoDB().then(() => importPokemonDataToMongoDB());
+
 async function createUsersCollection() {
   try {
     const usersCollection = db.collection("users");
@@ -78,21 +88,24 @@ async function createUsersCollection() {
       console.log("User user added");
     }
 
-    console.log("Default gebruikers toegevoegd");
+    console.log("Default users added");
   } catch (error) {
-    console.error("Fout bij het maken van de gebruikerscollectie:", error);
+    console.error("Error creating users collection:", error);
   }
 }
+
 connectToMongoDB().then(() => {
+  importPokemonDataToMongoDB();
   createUsersCollection();
 });
+
 async function readPokemonData(): Promise<Pokemon[]> {
   try {
     const pokemonDataPath = path.join(__dirname, "pokemon.json");
     const rawData = await fs.promises.readFile(pokemonDataPath, "utf-8");
     return JSON.parse(rawData) as Pokemon[];
   } catch (error) {
-    console.error(`Error lezen pokemon data: ${error}`);
+    console.error(`Error reading pokemon data: ${error}`);
     return [];
   }
 }
@@ -100,37 +113,50 @@ async function readPokemonData(): Promise<Pokemon[]> {
 app.use(express.static("public"));
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "..", "views"));
+app.use(express.urlencoded({ extended: true }));
 
 app.get("/index", async (req: Request, res: Response) => {
   const data = await readPokemonData();
   res.render("index", { data });
 });
+function isAuthenticated(req: Request, res: Response, next: Function) {
+  if (req.session && req.session.userId) {
+    return res.redirect("/index");
+  }
+  next();
+}
+function ensureAuthenticated(req: Request, res: Response, next: Function) {
+  if (req.session && req.session.userId) {
+    next();
+  } else {
+    res.redirect("/"); // Redirect to login page if not authenticated
+  }
+}
 
-app.get("/", (req, res) => {
+app.get("/home", ensureAuthenticated, (req, res) => {
+  res.render("home");
+});
+
+app.get("/", isAuthenticated, (req, res) => {
   res.render("login");
 });
+
 app.post("/login", async (req, res) => {
   const { username, password } = req.body;
 
-  // Controleer of de gebruiker bestaat in de database
   const user = await db.collection("users").findOne({ username });
   if (!user) {
-    return res.send("Gebruiker bestaat niet");
+    return res.send("User does not exist");
   }
 
-  // Controleer of het wachtwoord klopt
   const isPasswordValid = await bcrypt.compare(password, user.password);
   if (!isPasswordValid) {
-    return res.send("Verkeerd wachtwoord");
+    return res.send("Incorrect password");
   }
 
-  // Als de gegevens kloppen, stuur de gebruiker naar de index.ejs pagina
-  res.render("index");
+  res.redirect("/index");
 });
 
-app.get("/home", (req, res) => {
-  res.render("home");
-});
 app.get("/pokemon/filter", async (req: Request, res: Response) => {
   const name = req.query.name as string;
   if (!name) {
@@ -152,14 +178,14 @@ app.get("/pokemon/sort", async (req: Request, res: Response) => {
   const order = req.query.order as string;
 
   if (!field || !order) {
-    res.status(400).send("geen field of order query parameters");
+    res.status(400).send("Missing field or order query parameters");
     return;
   }
 
   const data = await readPokemonData();
 
   if (!data.some((p) => field in p)) {
-    res.status(400).send("Invalid field gespicifierd");
+    res.status(400).send("Invalid field specified");
     return;
   }
 
@@ -173,12 +199,13 @@ app.get("/pokemon/sort", async (req: Request, res: Response) => {
 
   res.render("index", { data: sortedData });
 });
+
 app.get("/pokemon/:id", async (req: Request, res: Response) => {
   const id = req.params.id;
   const data = await readPokemonData();
   const pokemon = data.find((p) => p.id === Number(id));
   if (!pokemon) {
-    res.status(404).send("Pokemon niet gevonden");
+    res.status(404).send("Pokemon not found");
     return;
   }
   res.render("pokemonDetail", { pokemon });
