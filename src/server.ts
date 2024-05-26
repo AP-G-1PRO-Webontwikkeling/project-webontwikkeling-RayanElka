@@ -1,7 +1,7 @@
 import express, { Request, Response, NextFunction } from "express";
 import path from "path";
 import fs from "fs";
-import { Pokemon } from "./src/interfaces";
+import { Pokemon } from "./interfaces";
 import { MongoClient, Db } from "mongodb";
 import dotenv from "dotenv";
 import bcrypt from "bcrypt";
