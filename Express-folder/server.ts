@@ -1,30 +1,29 @@
-import express, { Request, Response } from "express";
+import express, { Request, Response, NextFunction } from "express";
 import path from "path";
 import fs from "fs";
 import { Pokemon } from "./interfaces";
 import { MongoClient, Db } from "mongodb";
 import dotenv from "dotenv";
 import bcrypt from "bcrypt";
+import session from "express-session"; // Add this line
 
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 3000;
 const mongoURI: string = process.env.MONGO_URI || "";
 const dbName = process.env.DB_NAME || "";
-
-if (
-  !mongoURI.startsWith("mongodb://") &&
-  !mongoURI.startsWith("mongodb+srv://")
-) {
-  console.error(
-    "Invalid MongoDB connection string. It must start with 'mongodb://' or 'mongodb+srv://'"
-  );
-  process.exit(1);
-}
+const PORT = process.env.PORT || 3000;
 
 const client = new MongoClient(mongoURI);
 let db: Db;
+
+app.use(
+  session({
+    secret: "your-secret-key", // Replace with your own secret key
+    resave: false,
+    saveUninitialized: true,
+  })
+);
 
 async function connectToMongoDB() {
   try {
@@ -45,10 +44,22 @@ async function importPokemonDataToMongoDB() {
       .then((data) => JSON.parse(data));
 
     const collection = db.collection("pokemon");
-    const result = await collection.insertMany(pokemonData);
-    console.log(
-      `${result.insertedCount} documents were inserted into the pokemon collection.`
-    );
+
+    // Loop through each Pokemon in the data
+    for (const pokemon of pokemonData) {
+      // Check if the Pokemon already exists in the database
+      const existingPokemon = await collection.findOne({ id: pokemon.id });
+
+      // If the Pokemon does not exist, insert it into the database
+      if (!existingPokemon) {
+        await collection.insertOne(pokemon);
+        console.log(`Pokemon ${pokemon.name} inserted into the database.`);
+      } else {
+        console.log(
+          `Pokemon ${pokemon.name} already exists in the database. Skipping insertion.`
+        );
+      }
+    }
   } catch (error) {
     console.error(`Error importing pokemon data to MongoDB: ${error}`);
   }
@@ -71,21 +82,34 @@ async function createUsersCollection() {
       role: "USER",
     };
 
+    // Check if the admin user already exists
     const existingAdminUser = await usersCollection.findOne({
       username: adminUser.username,
     });
+
+    // If the admin user does not exist, insert it into the database
+    if (!existingAdminUser) {
+      await usersCollection.insertOne(adminUser);
+      console.log("Admin user added");
+    } else {
+      console.log(
+        "Admin user already exists in the database. Skipping insertion."
+      );
+    }
+
+    // Check if the regular user already exists
     const existingUserUser = await usersCollection.findOne({
       username: userUser.username,
     });
 
-    if (!existingAdminUser) {
-      await usersCollection.insertOne(adminUser);
-      console.log("Admin user added");
-    }
-
+    // If the regular user does not exist, insert it into the database
     if (!existingUserUser) {
       await usersCollection.insertOne(userUser);
-      console.log("User user added");
+      console.log("Regular user added");
+    } else {
+      console.log(
+        "Regular user already exists in the database. Skipping insertion."
+      );
     }
 
     console.log("Default users added");
@@ -119,13 +143,15 @@ app.get("/index", async (req: Request, res: Response) => {
   const data = await readPokemonData();
   res.render("index", { data });
 });
-function isAuthenticated(req: Request, res: Response, next: Function) {
+
+function isAuthenticated(req: Request, res: Response, next: NextFunction) {
   if (req.session && req.session.userId) {
     return res.redirect("/index");
   }
   next();
 }
-function ensureAuthenticated(req: Request, res: Response, next: Function) {
+
+function ensureAuthenticated(req: Request, res: Response, next: NextFunction) {
   if (req.session && req.session.userId) {
     next();
   } else {
@@ -154,7 +180,55 @@ app.post("/login", async (req, res) => {
     return res.send("Incorrect password");
   }
 
+  if (req.session) {
+    req.session.userId = user._id; // Save user ID in session
+  }
   res.redirect("/index");
+});
+// Route for the registration page
+app.get("/register", (req, res) => {
+  res.render("register", { error: null });
+});
+// Route to handle user registration
+// Route to handle user registration
+app.post("/register", async (req: Request, res: Response) => {
+  const { username, password } = req.body;
+
+  // Check if username already exists
+  const existingUser = await db.collection("users").findOne({ username });
+  if (existingUser) {
+    return res.render("register", { error: "Username already exists" });
+  }
+
+  try {
+    // Hash the password
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Save user to database
+    await db.collection("users").insertOne({
+      username,
+      password: hashedPassword,
+    });
+
+    // Redirect to login page after successful registration
+    res.redirect("/");
+  } catch (error) {
+    console.error("Error registering user:", error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+app.get("/logout", (req, res) => {
+  if (req.session) {
+    req.session.destroy((err) => {
+      if (err) {
+        return res.redirect("/index");
+      }
+      res.clearCookie("connect.sid");
+      res.redirect("/");
+    });
+  } else {
+    res.redirect("/");
+  }
 });
 
 app.get("/pokemon/filter", async (req: Request, res: Response) => {
