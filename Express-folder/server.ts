@@ -190,7 +190,6 @@ app.get("/register", (req, res) => {
   res.render("register", { error: null });
 });
 // Route to handle user registration
-// Route to handle user registration
 app.post("/register", async (req: Request, res: Response) => {
   const { username, password } = req.body;
 
