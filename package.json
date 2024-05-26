@@ -1,6 +1,5 @@
 {
   "devDependencies": {
-    
     "@types/bcrypt": "^5.0.2",
     "@types/express": "^4.17.21",
     "@types/express-session": "^1.17.0",
@@ -8,7 +7,6 @@
     "tailwindcss": "^3.4.3",
     "typescript": "^5.4.5"
   },
-  
   "name": "project-webontwikkeling-rayanelka",
   "version": "1.0.0",
   "main": "server.ts",
@@ -30,6 +28,5 @@
   },
   "author": "",
   "license": "ISC",
-  "description": "",
-  "type": "module"
+  "description": ""
 }
